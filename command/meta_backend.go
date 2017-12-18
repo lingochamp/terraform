@@ -841,17 +841,21 @@ func (m *Meta) backend_c_R_S(
 
 	// Ask the user if they want to migrate their existing remote state
 	copy := m.forceInitCopy
-	if !copy {
-		copy, err = m.confirm(&terraform.InputOpts{
-			Id: "backend-migrate-to-new",
-			Query: fmt.Sprintf(
-				"Do you want to copy the legacy remote state from %q?",
-				s.Remote.Type),
-			Description: strings.TrimSpace(inputBackendMigrateLegacyLocal),
-		})
-		if err != nil {
-			return nil, fmt.Errorf(
-				"Error asking for state copy action: %s", err)
+	if m.forceInitNotCopy {
+		copy = false
+	} else {
+		if !copy {
+			copy, err = m.confirm(&terraform.InputOpts{
+				Id: "backend-migrate-to-new",
+				Query: fmt.Sprintf(
+					"Do you want to copy the legacy remote state from %q?",
+					s.Remote.Type),
+				Description: strings.TrimSpace(inputBackendMigrateLegacyLocal),
+			})
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Error asking for state copy action: %s", err)
+			}
 		}
 	}
 
@@ -937,17 +941,21 @@ func (m *Meta) backend_C_R_s(
 	// Finally, ask the user if they want to copy the state from
 	// their old remote state location.
 	copy := m.forceInitCopy
-	if !copy {
-		copy, err = m.confirm(&terraform.InputOpts{
-			Id: "backend-migrate-to-new",
-			Query: fmt.Sprintf(
-				"Do you want to copy the legacy remote state from %q?",
-				s.Remote.Type),
-			Description: strings.TrimSpace(inputBackendMigrateLegacy),
-		})
-		if err != nil {
-			return nil, fmt.Errorf(
-				"Error asking for state copy action: %s", err)
+	if m.forceInitNotCopy {
+		copy = false
+	} else {
+		if !copy {
+			copy, err = m.confirm(&terraform.InputOpts{
+				Id: "backend-migrate-to-new",
+				Query: fmt.Sprintf(
+					"Do you want to copy the legacy remote state from %q?",
+					s.Remote.Type),
+				Description: strings.TrimSpace(inputBackendMigrateLegacy),
+			})
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Error asking for state copy action: %s", err)
+			}
 		}
 	}
 
@@ -1279,17 +1287,21 @@ func (m *Meta) backend_C_R_S_unchanged(
 
 	// Ask if the user wants to move their legacy remote state
 	copy := m.forceInitCopy
-	if !copy {
-		copy, err = m.confirm(&terraform.InputOpts{
-			Id: "backend-migrate-to-new",
-			Query: fmt.Sprintf(
-				"Do you want to copy the legacy remote state from %q?",
-				s.Remote.Type),
-			Description: strings.TrimSpace(inputBackendMigrateLegacy),
-		})
-		if err != nil {
-			return nil, fmt.Errorf(
-				"Error asking for state copy action: %s", err)
+	if m.forceInitNotCopy {
+		copy = false
+	} else {
+		if !copy {
+			copy, err = m.confirm(&terraform.InputOpts{
+				Id: "backend-migrate-to-new",
+				Query: fmt.Sprintf(
+					"Do you want to copy the legacy remote state from %q?",
+					s.Remote.Type),
+				Description: strings.TrimSpace(inputBackendMigrateLegacy),
+			})
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Error asking for state copy action: %s", err)
+			}
 		}
 	}
 

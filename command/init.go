@@ -28,6 +28,7 @@ func (c *InitCommand) Run(args []string) int {
 	cmdFlags.Var((*variables.FlagAny)(&flagConfigExtra), "backend-config", "")
 	cmdFlags.BoolVar(&flagGet, "get", true, "")
 	cmdFlags.BoolVar(&c.forceInitCopy, "force-copy", false, "suppress prompts about copying state data")
+	cmdFlags.BoolVar(&c.forceInitNotCopy, "force-not-copy", false, "suppress prompts about copying state data")
 	cmdFlags.BoolVar(&c.Meta.stateLock, "lock", true, "lock state")
 	cmdFlags.DurationVar(&c.Meta.stateLockTimeout, "lock-timeout", 0, "lock timeout")
 	cmdFlags.BoolVar(&c.reconfigure, "reconfigure", false, "reconfigure")
@@ -226,6 +227,10 @@ Options:
 
   -force-copy          Suppress prompts about copying state data. This is
                        equivalent to providing a "yes" to all confirmation
+                       prompts.
+
+  -force-not-copy      Suppress prompts about copying state data. This is
+                       equivalent to providing a "no" to all confirmation
                        prompts.
 
   -get=true            Download any modules for this configuration.

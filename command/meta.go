@@ -106,6 +106,7 @@ type Meta struct {
 	stateLock        bool
 	stateLockTimeout time.Duration
 	forceInitCopy    bool
+	forceInitNotCopy bool
 	reconfigure      bool
 }
 
